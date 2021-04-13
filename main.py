@@ -41,7 +41,7 @@ class Main(QWidget):
 
         #문자열 입력하는 lable
         label5 = QLabel('암호화 할 문장 입력', self)
-        label5.move(350, 240)
+        label5.move(350, 243)
         font5 = label5.font()
         font5.setPointSize(10)
         label5.setFont(font5)
@@ -50,55 +50,51 @@ class Main(QWidget):
         self.text2 = QPlainTextEdit(self)
         self.text2.setGeometry(245, 270, 350, 40) # x, y, w, h
 
-        #결과값 출력 버튼
-        self.btn1 = QPushButton('결과 확인하기', self)
-        self.btn1.clicked.connect(self.show_result)
-        self.btn1.move(370, 630)
-        self.btn1.resize(100, 30)
-
-        label6 = QLabel('결과 출력', self)
-        label6.move(380, 330)
+        #결과 출력 lable
+        label6 = QLabel('결과 출력(암호화 된 문자열)', self)
+        label6.move(330, 325)
         font6 = label6.font()
         font6.setPointSize(10)
         label6.setFont(font6)
 
         # 결과물 출력하는 text 창
-        self.textresult = QTextEdit(self)
-        self.textresult.setGeometry(245, 270, 350, 40)
+        self.result_text = QPlainTextEdit(self)
+        self.result_text.setGeometry(245, 349, 350, 40) # x, y, w, h
+
+        # 결과 출력 lable
+        label7 = QLabel('결과 출력(복호화 된 문자열)', self)
+        label7.move(330, 400)
+        font7 = label7.font()
+        font7.setPointSize(10)
+        label7.setFont(font7)
+
+        # 복호화 출력하는 text 창
+        self.result_text1 = QPlainTextEdit(self)
+        self.result_text1.setGeometry(245, 420, 350, 40)  # x, y, w, h
+
+        # 결과값 출력 버튼
+        self.btn1 = QPushButton('결과 확인하기', self)
+#        self.btn1.clicked.connect(self.show_secret())
+        self.btn1.move(370, 630)
+        self.btn1.resize(100, 30)
 
         #타이틀 메뉴
         self.setWindowTitle('Secret')
         self.setGeometry(600, 300, 800, 700) # x, y, w, h
         self.show()
 
-    def show_result(self):
+    def show_secret(self):
         self.answer_secrit = ''
-        self.answer_secrit1 = ''
-        self.keyword = self.text2.toPlainText()
-        self.result = self.text1.toPlainText()
-        for line in self.keword():
+        for line in self.text1.toPlainText():
             self.answer_secrit += line
-
-        for line2 in self.result():
-            self.answer_secrit += line2
-
-        msbox = QMessageBox()
-        msbox.setText(self.answer_secrit)
-        msbox.setText(self.answer_secrit1)
-        msbox.exec_()
-
-        label7 = QLabel(" ", self)
-        label7.move(290, 400)
-        font7 = label7.font()
-        font7.setPointSize(20)
-        label7.setFont(font7)
+#        self.result_text.insertPlainText(self.show_secret())
 
 
-
-    def text_changed(self):
-        text = self.te.toPlainText()
-        self.lbl2.setText(text + "는 바보 입니다")
-
+    def show_bokho(self):
+        self.answer_secrit1 = ''
+        for line2 in self.text2.toPlainText():
+            self.answer_secrit1 += line2
+#        self.result_text.insertPlainText(self.show_bokho())
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

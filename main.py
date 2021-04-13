@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, \
-    QWidget, QLabel, QTextEdit, QVBoxLayout, QMainWindow, QPushButton, QPlainTextEdit
+    QWidget, QLabel, QTextEdit, QVBoxLayout, QMainWindow, QPushButton, QPlainTextEdit, QMessageBox
 
 
 class Main(QWidget):
@@ -28,22 +28,25 @@ class Main(QWidget):
         font3.setPointSize(13)
         label3.setFont(font3)
 
+        #암호화 할 키 입력 lable
         label4 = QLabel('암호화 할 키 입력', self)
         label4.move(360, 180)
         font4 = label4.font()
         font4.setPointSize(10)
         label4.setFont(font4)
 
-        #문자 입력하는 edit 박스
+        #key 입력하는 edit 박스
         self.text1 = QPlainTextEdit(self)
         self.text1.setGeometry(360, 199, 100, 31) # x, y, w, h
 
+        #문자열 입력하는 lable
         label5 = QLabel('암호화 할 문장 입력', self)
         label5.move(350, 240)
         font5 = label5.font()
         font5.setPointSize(10)
         label5.setFont(font5)
 
+        # 문자열 입력하는 lable
         self.text2 = QPlainTextEdit(self)
         self.text2.setGeometry(245, 270, 350, 40) # x, y, w, h
 
@@ -58,6 +61,10 @@ class Main(QWidget):
         font6 = label6.font()
         font6.setPointSize(10)
         label6.setFont(font6)
+
+        # 결과물 출력하는 text 창
+        self.textresult = QTextEdit(self)
+        self.textresult.setGeometry(245, 270, 350, 40)
 
         #타이틀 메뉴
         self.setWindowTitle('Secret')
@@ -74,6 +81,11 @@ class Main(QWidget):
 
         for line2 in self.result():
             self.answer_secrit += line2
+
+        msbox = QMessageBox()
+        msbox.setText(self.answer_secrit)
+        msbox.setText(self.answer_secrit1)
+        msbox.exec_()
 
         label7 = QLabel(" ", self)
         label7.move(290, 400)

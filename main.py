@@ -83,6 +83,8 @@ class Main(QWidget):
         self.setGeometry(600, 300, 800, 700) # x, y, w, h
         self.show()
 
+        # 보안 코드
+
     def show_secret(self):
         self.answer_secrit = ''
         for line in self.text1.toPlainText():

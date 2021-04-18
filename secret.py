@@ -92,20 +92,21 @@ def strEncryption(key, secret_str):
     y1 = 0
     y2 = 0
     encStr = ''
+    tmpArr = [2]
 
     playFair = []
     encPlayFair = []
 
     for i in range(0, len(secret_str), 2):
-        tmpArr = [2]
+
         tmpArr[0] = secret_str[i]
         try:
-            if(secret_str[i] == secret_str[i+1]):
+            if secret_str[i] == secret_str[i + 1]:
                 tmpArr[1] = 'x'
                 i -= 1
             else:
-                tmpArr[1] = secret_str(i+1)
-        except IndexError:
+                tmpArr[1] = secret_str[i+1]
+        finally:
             tmpArr[1] = 'x'
             oddFlag = True
         playFair.add(tmpArr)
@@ -118,7 +119,7 @@ def strEncryption(key, secret_str):
         tmpArr = []
         for j in range(0, len(Board)):
             for k in range(0, Board[j]):
-                if(Board[j][k] == playFair[i][0]):
+                if Board[j][k] == playFair[i][0]:
                     x1 = j
                     y1 = k
                 if(Board[j][k] == playFair[i][1]):
@@ -143,7 +144,7 @@ def strEncryption(key, secret_str):
 Board = [[0 for i in range(5)] for j in range(5)]
 
 #
-zCheck = ''
+zCheck = 0
 
 decryption = ''
 encryption = ''
@@ -151,9 +152,9 @@ encryption = ''
 # 암호화 된 문자열 담는 변수
 secret_str = ''
 # 복호화 된 문자열 담수 변수
-bokho_str = ''
+bokho_str = 0
 # 빈칸 확인 변수
-blankCheck = ''
+blankCheck = 0
 # 빈칸 갯수 확인 변수
 blankCheckCount = 0
 
@@ -182,7 +183,7 @@ encryption = strEncryption(key, secret_str)
 print("암호화 된 문자열 : ", encryption)
 
 i = ''
-for i in len(encryption):
+for i in encryption:
     if ' ' in encryption:
         encryption = encryption[0, i] + encryption[i + 1, len(encryption)]
 

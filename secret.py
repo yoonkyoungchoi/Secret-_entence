@@ -1,3 +1,6 @@
+# True, False 판별
+oddFlag = False
+
 def setBoard(key):
     keyForSet = ''
     Flag = False
@@ -45,10 +48,10 @@ def strDecryption(key, secret_str, zCheck):
         tmpArr = [2]
         for j in len(Board):
             for k in len(Board[j]):
-                if (Board[j][k] == playFair.get(i)[0]):
+                if (Board[j][k] == playFair[i][0]):
                     x1 = j
                     y1 = k
-                if (Board[j][k] == playFair.get(i)[1]):
+                if (Board[j][k] == playFair[i][1]):
                     x2 = j
                     y2 = k
         if(x1 == x2):
@@ -64,10 +67,10 @@ def strDecryption(key, secret_str, zCheck):
         decPlayFair.add(tmpArr)
 
     for i in range(decPlayFair.size):
-        if(i != decPlayFair.size - 1 and decPlayFair.get(i)[1] == 'x' and decPlayFair.get(i)[0] == decPlayFair.get(i+1)[0]):
-            decStr += decPlayFair.get(i)[0]
+        if(i != decPlayFair.size - 1 and decPlayFair[i][1] == 'x' and decPlayFair[i][0] == decPlayFair[i+1][0]):
+            decStr += decPlayFair[i][0]
         else:
-            decStr += decPlayFair.get(i)[0] + "" + decPlayFair.get(i)[1]
+            decStr += decPlayFair[i][0] + "" + decPlayFair[i][1]
 
     for i in len(zCheck):
         if zCheck[i] == '1':
@@ -90,11 +93,30 @@ def strEncryption(key, secret_str):
     y2 = 0
     encStr = ''
 
+    playFair = []
+    encPlayFair = []
+
+    for i in range(0, len(secret_str), 2):
+        tmpArr = [2]
+        tmpArr[0] = secret_str[i]
+        try:
+            if(secret_str[i] == secret_str[i+1]):
+                tmpArr[1] = 'x'
+                i -= 1
+            else:
+                tmpArr[1] = secret_str(i+1)
+        except IndexError:
+            tmpArr[1] = 'x'
+            oddFlag = True
+        playFair.add(tmpArr)
+
+    for i in range(0, playFair.size):
+        print(playFair[i][0] + " " + playFair[i][1] + " ")
+    print("\n")
+
 # 5 * 5 크기의 2차원 배열 생성
 Board = [[0 for i in range(5)] for j in range(5)]
 
-# True, False 판별
-charCounter = False
 #
 zCheck = ''
 

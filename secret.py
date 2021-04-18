@@ -55,11 +55,11 @@ def strDecryption(key, secret_str, zCheck):
                     x2 = j
                     y2 = k
         if(x1 == x2):
-            tmpArr[0] = Board[x1][(y1+4)%5]
-            tmpArr[1] = Board[x2][(y2+4)%5]
+            tmpArr[0] = Board[x1][(y1+4) % 5]
+            tmpArr[1] = Board[x2][(y2+4) % 5]
         elif (y1 == y2):
-            tmpArr[0] = Board[(x1+4)%5][y1]
-            tmpArr[1] = Board[(x2+4)%5][y2]
+            tmpArr[0] = Board[(x1+4) % 5][y1]
+            tmpArr[1] = Board[(x2+4) % 5][y2]
         else:
             tmpArr[0] = Board[x2][y1]
             tmpArr[1] = Board[x1][y2]
@@ -114,6 +114,31 @@ def strEncryption(key, secret_str):
         print(playFair[i][0] + " " + playFair[i][1] + " ")
     print("\n")
 
+    for i in range(playFair.size):
+        tmpArr = []
+        for j in range(0, len(Board)):
+            for k in range(0, Board[j]):
+                if(Board[j][k] == playFair[i][0]):
+                    x1 = j
+                    y1 = k
+                if(Board[j][k] == playFair[i][1]):
+                    x2 = j
+                    y2 = k
+        if(x1 == x2):
+            tmpArr[0] = Board[x1][(y1+1)%5]
+            tmpArr[1] = Board[x2][(y2 + 1) % 5]
+        elif(y1 == y2):
+            tmpArr[0] = Board[(x1 + 1) % 5][y1]
+            tmpArr[1] = Board[(x2 + 1) % 5][y2]
+        else:
+            tmpArr[0] = Board[x2][y1]
+            tmpArr[1] = Board[x1][y2]
+
+        encPlayFair.add(tmpArr)
+
+        for i1 in range(0, encPlayFair.size):
+            encStr += encPlayFair[i1][0] + "" + encPlayFair[i1][1] + ""
+            return encStr
 # 5 * 5 크기의 2차원 배열 생성
 Board = [[0 for i in range(5)] for j in range(5)]
 

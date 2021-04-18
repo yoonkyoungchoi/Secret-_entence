@@ -6,6 +6,23 @@ def setBoard(key):
     key += "abcdefghijklmnopqrstuvwxyz"
 
     for i in len(key):
+        for j in len(keyForSet):
+            if key[i] == keyForSet[j]:
+                Flag = True
+                break
+
+        if(Flag == False):
+            keyForSet += key[i]
+            Flag = False
+
+    for i in len(Board):
+        for j in len(Board):
+            Board[i][j] = keyForSet[count+1]
+
+    for i in len(Board):
+        for j in len(Board):
+            print(Board[i][j] + '-')
+        print(" ")
 
 
 def strDecryption(key, secret_str, zCheck):
@@ -14,7 +31,58 @@ def strDecryption(key, secret_str, zCheck):
     y1 = 0
     y2 = 0
     decStr = ''
+    playFair = []
+    decPlayFair = []
+    Flag = 1
 
+    for i in range(0, len(secret_str), 2):
+        tmpArr = [2]
+        tmpArr[0] = secret_str[i]
+        tmpArr[1] = secret_str[i + 1]
+        playFair.add(tmpArr)
+
+    for i in range(playFair.size):
+        tmpArr = [2]
+        for j in len(Board):
+            for k in len(Board[j]):
+                if (Board[j][k] == playFair.get(i)[0]):
+                    x1 = j
+                    y1 = k
+                if (Board[j][k] == playFair.get(i)[1]):
+                    x2 = j
+                    y2 = k
+        if(x1 == x2):
+            tmpArr[0] = Board[x1][(y1+4)%5]
+            tmpArr[1] = Board[x2][(y2+4)%5]
+        elif (y1 == y2):
+            tmpArr[0] = Board[(x1+4)%5][y1]
+            tmpArr[1] = Board[(x2+4)%5][y2]
+        else:
+            tmpArr[0] = Board[x2][y1]
+            tmpArr[1] = Board[x1][y2]
+
+        decPlayFair.add(tmpArr)
+
+    for i in range(decPlayFair.size):
+        if(i != decPlayFair.size - 1 and decPlayFair.get(i)[1] == 'x' and decPlayFair.get(i)[0] == decPlayFair.get(i+1)[0]):
+            decStr += decPlayFair.get(i)[0]
+        else:
+            decStr += decPlayFair.get(i)[0] + "" + decPlayFair.get(i)[1]
+
+    for i in len(zCheck):
+        if zCheck[i] == '1':
+            decStr = decStr[0,i] + 'z' + decStr[i+1, len(decStr)]
+
+    if(Flag):
+        decStr = decStr[0, len(decStr) - 1]
+
+    for i in len(decStr):
+        if (i%2 == Flag):
+            decStr = decStr[0,i] + ' ' + decStr[i+1, len(decStr)]
+            i += 1
+            Flag = ++Flag % 2
+
+    return decStr
 def strEncryption(key, secret_str):
     x1 = 0
     x2 = 0
